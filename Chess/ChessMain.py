@@ -5,7 +5,6 @@ import datetime
 
 import pygame as p
 import pygame.surface
-
 import os
 
 # from tkinter import *
@@ -28,29 +27,19 @@ from Chess import ChessEngine, SmartMoveFinder
     :) enpassant
     :) castle
     :) ai - minimax, negamax, alpha-beta pruning
-
     :) player level - beginner, intermediate, advanced (no suggestions or possible blue squares) 
     :) player timing
     :) enable or disable AI
     :) select human color
-
     :) Automated Tutoring On / Off
     :) Suggest Move On / Off 
-
     :) indicate check, check mate
-
     :) clock tick
-mouse cursor
-Suggestion only in beginner and intermeditate
-Esc - stop thinking
-Summary of pieces
-Beginner, Intermediate - show pieces and move image
-Load, Save - allow load lessons
-
-web engine
-https://colab.research.google.com/github/iAmEthanMai/chess-engine-model/blob/main/python_chess_engine.ipynb#scrollTo=tIks0yXVpEw2
-score track
-Reset button
+    :) Summary of pieces
+    :) Beginner, Intermediate - show pieces and move image
+    :) Load, Save - allow load lessons
+    :) score track
+    :) Reset button
 
 Dec 2021
     :) Suggestion
@@ -65,15 +54,20 @@ Dec 2021
     :) set self.whiteKingHasMoved = False,self.whiteLeftRookHasMoved = False,self.whiteRightRookHasMoved = False
     :) self.blackKingHasMoved = False,self.blackLeftRookHasMoved = False,self.blackRightRookHasMoved = False
     :) test castling and en passant with AI
-Progress .... while thinking ...
-mouse cursor for waiting
-Reset should reset the clocks
-description of move
-possible animations
-restart new game
-Good or Bad previous move
+    :) Progress .... while thinking ...
+    :) Reset should reset the clocks
+    :) AI Enabled -  clock not ticking
 
-AI Enabled -  clock not ticking
+Future work:
+    mouse cursor when waiting
+    Suggestion only in beginner and intermeditate
+    Esc - stop thinking
+    description of move
+    possible animations
+    restart new game
+    Good or Bad previous move
+    web engine
+    https://colab.research.google.com/github/iAmEthanMai/chess-engine-model/blob/main/python_chess_engine.ipynb#scrollTo=tIks0yXVpEw2
 """
 
 #WIDTH = HEIGHT = 512 #400
