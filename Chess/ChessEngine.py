@@ -94,9 +94,15 @@ class GameState():
         self.bQ = 0
         self.countedPieces = {'wK': 0, 'wQ': 0, 'wR': 0, 'wB': 0, 'wN': 0, 'wp': 0, 'bK': 0, 'bQ': 0, 'bR': 0, 'bB': 0, 'bN': 0, 'bp': 0}
 
+    '''
+    Set time
+    '''
     def setTime(self):
         self.startTime = datetime.datetime.now()
 
+    '''
+    Keep track of time
+    '''
     def getTimes(self):
         endTime = datetime.datetime.now()
         delta = endTime - self.startTime
@@ -124,6 +130,9 @@ class GameState():
 
         self.setTime()
 
+    '''
+    Calculate seconds to display
+    '''
     def getTimesToDisplay(self, displayWhite, maxMinutesPlay):
 
         # if not (displayWhite and self.isAIEnabled and self.isAIColorWhite) \
@@ -159,9 +168,15 @@ class GameState():
 
         return new_datetime.strftime("%M:%S")
 
+    '''
+    Check if game is over
+    '''
     def isGameOver(self):
         return self.isInStaleMate or self.isInCheckMate or self.timeHasExpired
 
+    '''
+    Reset the board
+    '''
     def setCleanBoard(self):
         #self.board = []
         #self.board = self.boardOrig
@@ -175,20 +190,29 @@ class GameState():
             ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
             ["wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"]]
 
+    '''
+    Ranks to rows
+    '''
     def getRanksToRows(self):
         move = Move((0,0), (1,1), self.board)
         return move.ranksToRows
 
+    '''
+    Rows to ranks
+    '''
     def getRowsToRanks(self):
         move = Move((0,0), (1,1), self.board)
         return move.rowsToRanks
 
+    '''
+    Cols to files
+    '''
     def getColsToFiles(self):
         move = Move((0,0), (1,1), self.board)
         return move.colsToFiles
 
     '''
-    Takes a move as a parameter (not castling and en-passant
+    Takes a move as a parameter (incl. castling and en-passant)
     '''
     def makeMove(self, move):
         if move != None:
@@ -284,7 +308,7 @@ class GameState():
             #(self.blackKingAt[0], self.blackKingAt[1])
 
     '''
-    Undo the last move
+    Undo the last move, keep track of Kings
     '''
     def undoMove(self):
         if len(self.moveLog) != 0:
@@ -307,7 +331,7 @@ class GameState():
         self.isInStaleMate = False;
 
     '''
-    All moves consider checks
+    All moves allowed, consider checks
     '''
     def getValidMoves(self):
         #all posible moves
@@ -358,6 +382,9 @@ class GameState():
 
         return False
 
+    '''
+    Swap player turns
+    '''
     def swapPlayers(self):
         # endTime = datetime.datetime.now()
         # delta = self.startTime - endTime
@@ -366,6 +393,9 @@ class GameState():
 
         self.whiteToMove = not self.whiteToMove
 
+    '''
+    Store opponent's last move made
+    '''
     def storeLastMove(self,move):
         if self.whiteToMove:
             self.blackLastMove = move
@@ -930,7 +960,9 @@ class GameState():
                 and self.board[kingRow][5] == '' and self.board[kingRow][6] == '':
                     moves.append(Move((row,col), (row,col+2), self.board))
 
-
+    '''
+    Get opponent / AI option to use
+    '''
     def getOpponentOption(self, location, beginnerLeft, beginnerTop, intermediateLeft, intermediateTop, advancedLeft, advancedTop, noneLeft, noneTop, intermediatePlusLeft, intermediatePlusTop, advancedPlusLeft, advancedPlusTop):
 
         self.isOptionBeginner = (beginnerLeft <= location[0] and location[0] <= beginnerLeft+117) and (beginnerTop <= location[1] and location[1] <= beginnerTop+16)
@@ -944,7 +976,9 @@ class GameState():
 
         self.isOptionNone = not (self.isOptionBeginner or self.isOptionIntermediate or self.isOptionIntermediatePlus or self.isOptionAdvanced or self.isOptionAdvancedPlus)
 
-
+    '''
+    Determine which button was clicked
+    '''
     def getButtonOption(self, location,
                         buttonUndoTop, buttonUndoLeft,
                         buttonSuggestionTop, buttonSuggestionLeft,
@@ -962,6 +996,9 @@ class GameState():
         self.isButtonAIEnabled = (buttonEnableAILeft <= location[0] and location[0] <= buttonEnableAILeft+117) and (buttonEnableAITop <= location[1] and location[1] <= buttonEnableAITop+16)
         self.isButtonAIColorWhite = (buttonColorAILeft <= location[0] and location[0] <= buttonColorAILeft+117) and (buttonColorAITop <= location[1] and location[1] <= buttonColorAITop+16)
 
+    '''
+    Count pieces on the board
+    '''
     def countPieces(self):
         self.wP = 0
         self.wN = 0
@@ -1050,8 +1087,14 @@ class Move():
             return self.moveID == other.moveID
         return False
 
+    '''
+    Get chess notation of move
+    '''
     def getChessNotation(self):
         return self.getRankFile(self.startRow, self.startCol) + self.getRankFile(self.endRow, self.endCol)
 
+    '''
+    Get rank to file, row to col
+    '''
     def getRankFile(self, row, col):
         return self.colsToFiles[col] + self.rowsToRanks[row]

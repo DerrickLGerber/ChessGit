@@ -5,7 +5,9 @@ CheckMate = 1000
 StaleMate = 0
 MaxDepth = 3
 
-
+'''
+Get next AI / opponent move
+'''
 def generateMove(gs, validMoves, isBeginner, isIntermediate, isAdvanced, isIntermediatePlus, isAdvancedPlus):
     #depending on option selected return a move
     if isBeginner:
@@ -25,7 +27,7 @@ def generateMove(gs, validMoves, isBeginner, isIntermediate, isAdvanced, isInter
         return findBestMoveNegaMaxAlphaBeta(gs, validMoves)
 
 '''
-find the best move based on scores
+Find the best move based on scores
 '''
 def findBestMove(gs, validMoves):
     turnMultiplier = 1 if gs.whiteToMove else -1
@@ -117,7 +119,7 @@ def findBestMove(gs, validMoves):
 
 
 '''
-Recursive calls
+Call min-max move
 '''
 def findBestMoveMinMax(gs, validMoves):
     global nextMove
@@ -127,6 +129,9 @@ def findBestMoveMinMax(gs, validMoves):
 
     return nextMove
 
+'''
+Find min-max move
+'''
 def findMoveMinMax(gs, validMoves, depth, whiteTomove):
     global nextMove
     if depth == 0:
@@ -162,13 +167,13 @@ def findMoveMinMax(gs, validMoves, depth, whiteTomove):
         return minScore
 
 '''
-Random move
+Find random move
 '''
 def findRandomMove(validMoves):
     return validMoves[random.randint(0, len(validMoves) - 1)]
 
 '''
-score board
+Score pieces on board
 '''
 def scoreMaterial(board):
     score = 0
@@ -218,6 +223,9 @@ def scoreBoard(gs):
 
     return score
 
+'''
+Call nega-max move
+'''
 def findBestMoveNegaMax(gs, validMoves):
     global nextMove, counter
     nextMove = None
@@ -231,9 +239,11 @@ def findBestMoveNegaMax(gs, validMoves):
     #print('PieceScores[square[N]:' + str(PieceScores['N']))
     #print('PieceScores[square[B]:' + str(PieceScores['B']))
 
-
     return nextMove
 
+'''
+Find nega-max move
+'''
 def findMoveNegaMax(gs, validMoves, depth, whiteToMoveInt):
     #print("whiteToMoveInt:" + str(whiteToMoveInt) + " (depth:" + str(depth) + ")")
     global nextMove,counter
@@ -265,6 +275,8 @@ def findMoveNegaMax(gs, validMoves, depth, whiteToMoveInt):
 
     return maxScore
 
+'''
+Call nega-max with alpha pruning move'''
 def findBestMoveNegaMaxAlphaBeta(gs, validMoves):
     global nextMove, counter
     nextMove = None
@@ -282,6 +294,9 @@ def findBestMoveNegaMaxAlphaBeta(gs, validMoves):
 
     return nextMove
 
+'''
+Find nega-max with alpha pruning move
+'''
 def findMoveNegaMaxAlphaBeta(gs, validMoves, depth, alpha, beta, whiteToMoveInt):
     #print("whiteToMoveInt:" + str(whiteToMoveInt) + " (depth:" + str(depth) + ")")
     global nextMove,counter

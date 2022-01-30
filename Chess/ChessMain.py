@@ -59,6 +59,7 @@ Dec 2021
     :) AI Enabled -  clock not ticking
 
 Future work:
+    Adjust/edit timer options 5, 10, 15+
     mouse cursor when waiting
     Suggestion only in beginner and intermeditate
     Esc - stop thinking
@@ -446,7 +447,7 @@ def main():
 
 
 '''
-Responsible for graphics
+Responsible for graphics, buttons, borders
 '''
 def drawGameState(screen, gs, sqSelected, validmoves):
     drawBoard(screen, gs, sqSelected, validmoves)#draw squares on board
@@ -703,7 +704,7 @@ def drawPlayerTurn(screen, drawWhite):
     screen.blit(text5, textRect5)
 
 '''
-Draw pieces
+Draw pieces on board
 '''
 def drawPieces(screen, board):
     for row in range(DIMENSION):
@@ -713,6 +714,9 @@ def drawPieces(screen, board):
             if piece != '--' and piece != '':
                 screen.blit(IMAGES[piece], p.Rect(col*SQUARE_SIZE+PADLEFT, row*SQUARE_SIZE+PADTOP, SQUARE_SIZE, SQUARE_SIZE))
 
+'''
+Draw piece summary
+'''
 def drawPieceSummary(screen, gs):
     summary = [
         ["bp", "bR", "bN", "bB", "bQ"],
@@ -882,7 +886,7 @@ def drawPlayerLevels(screen, gs):
     p.draw.line(screen, p.Color("black"), ((DIMENSION * SQUARE_SIZE) + PADLEFT + PADLEFT + 10, 500), (WIDTH, 500), 2)
 
 '''
-Draw player options
+Draw player options (buttons)
 '''
 def drawOptions(screen, gs):
     font = p.font.Font('freesansbold.ttf', 18)
@@ -965,7 +969,7 @@ def drawOptions(screen, gs):
     p.draw.line(screen, p.Color("black"), ((DIMENSION * SQUARE_SIZE) + PADLEFT + PADLEFT + 10, ButtonEnableAITop+30), (WIDTH, ButtonEnableAITop+30), 2)
 
 '''
-Draw available move options
+Draw available move options, highlight options.
 '''
 def drawPossibleOptions(screen, gs, sqSelected, validmoves):
     selected = p.Color("light blue")
@@ -984,7 +988,7 @@ def drawPossibleOptions(screen, gs, sqSelected, validmoves):
                                                              SQUARE_SIZE/4, SQUARE_SIZE/4))
 
 '''
-Draw available move options
+Draw available move options (suggestions)
 '''
 def drawPossibleSuggestions(screen, gs, sqSelected, validmoves):
     selected = p.Color("light blue")
@@ -1003,7 +1007,9 @@ def drawPossibleSuggestions(screen, gs, sqSelected, validmoves):
                                                              SQUARE_SIZE/4, SQUARE_SIZE/4))
 
 
-
+'''
+Draw game over label
+'''
 def drawGameOver(screen, gs):
     if gs.isGameOver(): #gs.isInCheckMate or gs.isInStaleMate or gs.timeHasExpired:
         font = p.font.Font('freesansbold.ttf',20)
@@ -1039,6 +1045,9 @@ def drawGameOver(screen, gs):
 
         screen.blit(textWin, textRectWin)
 
+'''
+Save board to file
+'''
 def saveToFile(gs):
     import tkinter as tk
     from tkinter import filedialog
@@ -1083,6 +1092,10 @@ def saveToFile(gs):
 
     print("File saved: " + fileName)
 
+
+'''
+Load board from file
+'''
 def loadFromFile(gs):
     import tkinter as tk
     from tkinter import filedialog
